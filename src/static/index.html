@@ -15,6 +15,10 @@
     <h2>Extracurricular Activities</h2>
     <div id="user-controls">
       <div id="user-status">
+        <button id="manage-announcements-button" class="icon-button hidden" aria-label="Manage announcements">
+          <span>📢</span>
+          <span>Manage Announcements</span>
+        </button>
         <button id="login-button" class="icon-button">
           <span class="user-icon">👤</span>
           <span>Login</span>
@@ -28,6 +32,12 @@
   </header>
 
   <main>
+    <section id="announcements-container" aria-live="polite">
+      <div id="announcement-list" class="announcement-list">
+        <p>Loading announcements...</p>
+      </div>
+    </section>
+
     <section id="activities-container">
       <div class="main-content-layout">
         <!-- Left Sidebar for Filters -->
@@ -132,10 +142,47 @@
     </div>
   </div>
 
-  <div class="announcement-banner">
-    📢 Activity registration is open until the end of the month. Don't lose your spot!
+  <div id="announcement-manager-modal" class="modal hidden" role="dialog" aria-modal="true"
+    aria-labelledby="announcement-manager-title">
+    <div class="modal-content announcement-manager-content">
+      <span class="close-announcement-manager-modal" aria-label="Close announcement manager">&times;</span>
+      <h3 id="announcement-manager-title">Manage Announcements</h3>
+      <form id="announcement-form" class="announcement-form">
+        <input type="hidden" id="announcement-id" value="" />
+        <div class="form-group">
+          <label for="announcement-title">Title</label>
+          <input type="text" id="announcement-title" required maxlength="120" placeholder="Announcement title" />
+        </div>
+        <div class="form-group">
+          <label for="announcement-message">Message</label>
+          <textarea id="announcement-message" required maxlength="500" rows="3"
+            placeholder="Write your announcement message"></textarea>
+        </div>
+        <div class="announcement-date-grid">
+          <div class="form-group">
+            <label for="announcement-start-date">Start Date (optional)</label>
+            <input type="date" id="announcement-start-date" />
+          </div>
+          <div class="form-group">
+            <label for="announcement-expiration-date">Expiration Date</label>
+            <input type="date" id="announcement-expiration-date" required />
+          </div>
+        </div>
+        <div class="announcement-form-actions">
+          <button type="button" id="announcement-form-reset" class="secondary-action">Clear</button>
+          <button type="submit" id="announcement-save-button">Save Announcement</button>
+        </div>
+      </form>
+
+      <div class="announcement-management-list-wrapper">
+        <h4>Existing Announcements</h4>
+        <div id="announcement-management-list" class="announcement-management-list">
+          <p>No announcements yet.</p>
+        </div>
+      </div>
+      <div id="announcement-manager-message" class="hidden message"></div>
+    </div>
   </div>
-  📢 Activity registration is open until the end of the month. Don't loose your spot!
   <script src="app.js"></script>
 </body>
 </html>
